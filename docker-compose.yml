@@ -1,0 +1,17 @@
+services:
+  stapel:
+    build: .
+    container_name: karteikarten-stapel
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: file:/data/prod.db
+      AUTH_SECRET: ${AUTH_SECRET:?Bitte AUTH_SECRET in .env setzen}
+      NEXT_PUBLIC_APP_URL: https://karteikarten.motizen.de
+      NODE_ENV: production
+    volumes:
+      - stapel-data:/data
+
+volumes:
+  stapel-data:
